@@ -132,4 +132,43 @@ public class OrderDAO {
         return 0;
     }
 
+    public int addItem(long orderId, long itemId) {
+        try (Connection connection = DBUtils.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT item_name, item_price FROM items WHERE item_id = ?");) {
+            statement.setLong(1, itemId);
+            String itemName = null;
+            double itemPrice = -1;
+            try (ResultSet resultSet = statement.executeQuery();) {
+                resultSet.next();
+                itemName = resultSet.getString(1);
+                itemPrice = resultSet.getDouble(2);
+                if(!itemName.isEmpty() && itemPrice > -1) {
+                    PreparedStatement statement1 = connection.prepareStatement("INSERT INTO order_items VALUES ('?', '?', '?', '?')");
+                    statement1.setLong(1, orderId);
+                    statement1.setLong(2, itemId);
+                    statement1.setString(3, itemName);
+                    statement1.setDouble(4, itemPrice);
+                    return statement1.execute() ? 1 : 0;
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+        return 0;
+    }
+
+    public int deleteItem(long orderId, long itemId) {
+        try (Connection connection = DBUtils.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM order_items WHERE order_id = ? AND item_id = ?");) {
+            statement.setLong(1, orderId);
+            statement.setLong(2, itemId);
+            return statement.execute() ? 1 : 0;
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+        return 0;
+    }
+
 }

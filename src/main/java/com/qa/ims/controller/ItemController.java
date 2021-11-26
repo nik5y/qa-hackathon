@@ -80,4 +80,15 @@ public class ItemController implements CrudController<Item> {
         return itemDAO.delete(id);
     }
 
+
+    @Override
+    public int addItem() {
+        return 0;
+    }
+
+    @Override
+    public int deleteItem() {
+        return 0;
+    }
+
 }

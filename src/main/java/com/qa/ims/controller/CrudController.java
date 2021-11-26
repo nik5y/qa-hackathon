@@ -16,4 +16,9 @@ public interface CrudController<T> {
 
 	int delete();
 
+//	Double calculateOrder();
+
+	int addItem();
+
+	int deleteItem();
 }

@@ -97,6 +97,15 @@ public class IMS {
 			break;
 		case RETURN:
 			break;
+		case ADDITEM:
+			crudController.addItem();
+			break;
+//		case PRICE:
+//			crudController.calculateOrder();
+//			break;
+		case DELETEITEM:
+			crudController.deleteItem();
+			break;
 		default:
 			break;
 		}
