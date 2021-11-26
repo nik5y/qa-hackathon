@@ -57,7 +57,7 @@ public class OrderController implements CrudController<Order> {
         LOGGER.info("Choose item ID");
         long itemId = utils.getLong();
         int result = orderDAO.addItem(orderId, itemId);
-        LOGGER.info(result==1?"Item added" : "Item failed to add.");
+        LOGGER.info("Item added");
         return 1;
     }
 
@@ -68,7 +68,7 @@ public class OrderController implements CrudController<Order> {
         LOGGER.info("Choose item ID");
         long itemId = utils.getLong();
         int result = orderDAO.deleteItem(orderId, itemId);
-        LOGGER.info(result==1?"Item deleted" : "Item failed to delete.");
+        LOGGER.info("Item deleted.");
         return result;
     }
 //    private Long productId;

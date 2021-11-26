@@ -144,7 +144,7 @@ public class OrderDAO {
                 itemPrice = resultSet.getDouble(2);
                 System.out.println(itemName + itemPrice);
                 if(!itemName.isEmpty() && itemPrice > -1) {
-                    PreparedStatement statement1 = connection.prepareStatement("INSERT INTO order_items(order_id, item_id, item_name, item_price) VALUES (?, ?, ?, ?)");
+                    PreparedStatement statement1 = connection.prepareStatement("INSERT INTO order_items VALUES (?, ?, ?, ?)");
                     statement1.setInt(1, (int) orderId);
                     statement1.setInt(2, (int) itemId);
                     statement1.setString(3, itemName);
