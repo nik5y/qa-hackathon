@@ -76,9 +76,6 @@ Run Runner.main() (src/main/java/com/qa/ims/Runner.java) within your IDE.
 
 ```
 
-
-End with an example of getting some data out of the system or using it for a little demo
-
 ## Running the tests
 
 Test cases derived from user stories and manual verification. 
