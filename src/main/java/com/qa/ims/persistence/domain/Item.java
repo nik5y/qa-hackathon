@@ -4,14 +4,14 @@ public class Item {
 
     private Long id;
     private String itemName;
-    private Float price;
+    private Double price;
 
-    public Item(String itemName, Float price) {
+    public Item(String itemName, Double price) {
         this.setitemName(itemName);
         this.setprice(price);
     }
 
-    public Item(Long id, String itemName, Float price) {
+    public Item(Long id, String itemName, Double price) {
         this.setId(id);
         this.setitemName(itemName);
         this.setprice(price);
@@ -33,11 +33,11 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public Float getprice() {
+    public Double getprice() {
         return price;
     }
 
-    public void setprice(Float price) {
+    public void setprice(Double price) {
         this.price = price;
     }
 

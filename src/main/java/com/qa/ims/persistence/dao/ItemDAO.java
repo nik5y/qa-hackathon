@@ -23,7 +23,7 @@ public class ItemDAO {
     public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong("id");
         String itemName = resultSet.getString("item_name");
-        Float price = Float.parseFloat(resultSet.getString("price"));
+        Double price = Double.parseDouble(resultSet.getString("item_price"));
         return new Item(id, itemName, price);
     }
 
@@ -71,9 +71,9 @@ public class ItemDAO {
     public Item create(Item item) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement("INSERT INTO items(item_name, price) VALUES (?, ?)");) {
+                     .prepareStatement("INSERT INTO items(item_name, item_price) VALUES (?, ?)");) {
             statement.setString(1, item.getitemName());
-            statement.setFloat(2, item.getprice());
+            statement.setDouble(2, item.getprice());
             statement.executeUpdate();
             return readLatest();
         } catch (Exception e) {
@@ -110,9 +110,9 @@ public class ItemDAO {
     public Item update(Item item) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement("UPDATE items SET item_name = ?, price = ? WHERE id = ?");) {
+                     .prepareStatement("UPDATE items SET item_name = ?, item_price = ? WHERE id = ?");) {
             statement.setString(1, item.getitemName());
-            statement.setFloat(2, item.getprice());
+            statement.setDouble(2, item.getprice());
             statement.setLong(3, item.getId());
             statement.executeUpdate();
             return read(item.getId());
