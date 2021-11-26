@@ -3,20 +3,20 @@ CREATE SCHEMA IF NOT EXISTS `ims`;
 USE `ims` ;
 
 CREATE TABLE IF NOT EXISTS `ims`.`customers` (
-                                                 `id` INT NOT NULL AUTO_INCREMENT,
-                                                 `first_name` VARCHAR(40) DEFAULT NULL,
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `first_name` VARCHAR(40) DEFAULT NULL,
     `surname` VARCHAR(40) DEFAULT NULL,
     PRIMARY KEY (`id`)
-    );
+);
 
 
 
 CREATE TABLE IF NOT EXISTS `ims`.`customers` (
-                                                 `id` INT NOT NULL AUTO_INCREMENT,
-                                                 `first_name` VARCHAR(40) DEFAULT NULL,
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `first_name` VARCHAR(40) DEFAULT NULL,
     `surname` VARCHAR(40) DEFAULT NULL,
     PRIMARY KEY (`id`)
-    );
+);
 
 
 CREATE TABLE IF NOT EXISTS `ims`.`items` (
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `ims`.`items` (
     );
 
 
-CREATE TABLE `ims`.`order` (
+CREATE TABLE IF NOT EXISTS`ims`.`order` (
                                `order_id` INT NOT NULL,
                                `customer_id` INT NOT NULL,
                                `item_id` INT NOT NULL,
@@ -59,3 +59,15 @@ CREATE TABLE `ims`.`order` (
                                        ON DELETE NO ACTION
                                        ON UPDATE NO ACTION);
 
+CREATE TABLE IF NOT EXISTS `ims`.`order_items` (
+    `order_id` INT NOT NULL,
+    `item_id` INT NOT NULL,
+    PRIMARY KEY (`order_id` , `item_id`),
+    CONSTRAINT `order_id` FOREIGN KEY (`order_id`)
+        REFERENCES `ims`.`order` (`order_id`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (`item_id`)
+        REFERENCES items (id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+    
