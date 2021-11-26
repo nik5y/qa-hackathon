@@ -9,10 +9,18 @@ public class Order {
     private Double productValue;
 
 
-    public Order(Long orderId, String productName, Double productValue) {
-        this.orderId=orderId;
-        this.productName=productName;
-        this.productValue=productValue;
+//    public Order(Long orderId, String productName, Double productValue) {
+//        this.setOrderId(orderId);
+//        this.productName = productName;
+//        this.productValue = productValue;
+//    }
+
+    public Order(Long orderId, Long customerId, Long productId, String productName, Double productValue) {
+        this.setOrderId(orderId);
+        this.setCustomerId(customerId);
+        this.setProductId(productId);
+        this.setProductName(productName);
+        this.setProductValue(productValue);
     }
 
     public Long getOrderId() {
