@@ -29,7 +29,7 @@ public class OrderDAO {
     public List<Order> readAll() {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM order");) {
             List<Order> order = new ArrayList<>();
             while (resultSet.next()) {
                 order.add(modelFromResultSet(resultSet));
@@ -45,7 +45,7 @@ public class OrderDAO {
     public Order readLatest() {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY order_id DESC LIMIT 1");) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM order ORDER BY order_id DESC LIMIT 1");) {
             resultSet.next();
             return modelFromResultSet(resultSet);
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class OrderDAO {
     public Order create(Order o) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement("INSERT INTO orders(customer_id) VALUES (?)");) {
+                     .prepareStatement("INSERT INTO order(customer_id) VALUES (?)");) {
             statement.setInt(1, o.getCustomerId());
             statement.executeUpdate();
             return readLatest();
@@ -78,7 +78,7 @@ public class OrderDAO {
 //    @Overrorder_ide
     public Order read(Long order_id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE order_id = ?");) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM order WHERE order_id = ?");) {
             statement.setLong(1, order_id);
             try (ResultSet resultSet = statement.executeQuery();) {
                 resultSet.next();
@@ -102,7 +102,7 @@ public class OrderDAO {
     public Order update(Order o) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement("UPDATE orders SET customer_id = ? WHERE order_id = ?");) {
+                     .prepareStatement("UPDATE order SET customer_id = ? WHERE order_id = ?");) {
             statement.setInt(1, o.getCustomerId());
             statement.setLong(2, o.getOrderId());
             statement.executeUpdate();
@@ -122,7 +122,7 @@ public class OrderDAO {
 //    @Overrorder_ide
     public int delete(long order_id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM orders WHERE order_id = ?");) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM order WHERE order_id = ?");) {
             statement.setLong(1, order_id);
             return statement.executeUpdate();
         } catch (Exception e) {
