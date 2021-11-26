@@ -56,12 +56,16 @@ public class Order {
     }
 
 
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", customerId=" + customerId +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productValue=" + productValue +
+                '}';
+    }
 
 
 }
