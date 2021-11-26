@@ -29,7 +29,7 @@ public class OrderDAO {
     public List<Order> readAll() {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM order");) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders");) {
             List<Order> order = new ArrayList<>();
             while (resultSet.next()) {
                 order.add(modelFromResultSet(resultSet));
@@ -45,7 +45,7 @@ public class OrderDAO {
     public Order readLatest() {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM order ORDER BY order_id DESC LIMIT 1");) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY order_id DESC LIMIT 1");) {
             resultSet.next();
             return modelFromResultSet(resultSet);
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class OrderDAO {
     public Order create(Order o) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement("INSERT INTO order(customer_id) VALUES (?)");) {
+                     .prepareStatement("INSERT INTO orders(customer_id) VALUES (?)");) {
             statement.setInt(1, o.getCustomerId());
             statement.executeUpdate();
             return readLatest();
@@ -78,7 +78,7 @@ public class OrderDAO {
 //    @Overrorder_ide
     public Order read(Long order_id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM order WHERE order_id = ?");) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE order_id = ?");) {
             statement.setLong(1, order_id);
             try (ResultSet resultSet = statement.executeQuery();) {
                 resultSet.next();
@@ -102,7 +102,7 @@ public class OrderDAO {
     public Order update(Order o) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement("UPDATE order SET customer_id = ? WHERE order_id = ?");) {
+                     .prepareStatement("UPDATE orders SET customer_id = ? WHERE order_id = ?");) {
             statement.setInt(1, o.getCustomerId());
             statement.setLong(2, o.getOrderId());
             statement.executeUpdate();
@@ -122,7 +122,7 @@ public class OrderDAO {
 //    @Overrorder_ide
     public int delete(long order_id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM order WHERE order_id = ?");) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM orders WHERE order_id = ?");) {
             statement.setLong(1, order_id);
             return statement.executeUpdate();
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class OrderDAO {
 
     public int addItem(long orderId, long itemId) {
         try (Connection connection = DBUtils.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT item_name, item_price FROM items WHERE item_id = ?");) {
+             PreparedStatement statement = connection.prepareStatement("SELECT item_name, item_price FROM items WHERE id = ?");) {
             statement.setLong(1, itemId);
             String itemName = null;
             double itemPrice = -1;
@@ -142,13 +142,14 @@ public class OrderDAO {
                 resultSet.next();
                 itemName = resultSet.getString(1);
                 itemPrice = resultSet.getDouble(2);
+                System.out.println(itemName + itemPrice);
                 if(!itemName.isEmpty() && itemPrice > -1) {
-                    PreparedStatement statement1 = connection.prepareStatement("INSERT INTO order_items VALUES ('?', '?', '?', '?')");
-                    statement1.setLong(1, orderId);
-                    statement1.setLong(2, itemId);
+                    PreparedStatement statement1 = connection.prepareStatement("INSERT INTO order_items(order_id, item_id, item_name, item_price) VALUES (?, ?, ?, ?)");
+                    statement1.setInt(1, (int) orderId);
+                    statement1.setInt(2, (int) itemId);
                     statement1.setString(3, itemName);
                     statement1.setDouble(4, itemPrice);
-                    return statement1.execute() ? 1 : 0;
+                    return statement1.execute()?1:0;
                 }
             }
         } catch (Exception e) {
