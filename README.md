@@ -12,7 +12,7 @@ There are three main entities of which can be created, updated, read and deleted
 
 ### Customer 
 - In the customer entity inputting CREATE will ask the user to input a first name and a last name to create a new customer. 
-- Inputting READ will retrieve the relevant record from teh database adn inform the user of the id, first name and surname.
+- Inputting READ will retrieve the relevant record from the database adn inform the user of the id, first name and surname.
 - Inputting UPDATE the console will ask the user to input the ID of the record they wish to update and the user can update the record's first and surname. The console will then confirm that the record has been updated. 
 - Inputting DELETE the console will ask the user to input the ID of the record they wish to delete and the record will then be deleted. 
 - Inputting RETURN will take the user back to the main domain selection screen. 
