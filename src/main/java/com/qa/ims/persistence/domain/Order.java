@@ -3,17 +3,15 @@ package com.qa.ims.persistence.domain;
 public class Order {
 
     private Long orderId;
-    private Long customerId;
-    private Long productId;
-    private String productName;
-    private Double productValue;
+    private int customerId;
 
-    public Order(Long orderId, Long customerId, Long productId, String productName, Double productValue) {
+    public Order(Long orderId, int customerId ) {
         this.setOrderId(orderId);
         this.setCustomerId(customerId);
-        this.setProductId(productId);
-        this.setProductName(productName);
-        this.setProductValue(productValue);
+    }
+
+    public Order(int customerId) {
+        this.setCustomerId(customerId);
     }
 
     public Long getOrderId() {
@@ -24,36 +22,12 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Long getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Double getProductValue() {
-        return productValue;
-    }
-
-    public void setProductValue(Double productValue) {
-        this.productValue = productValue;
     }
 
 
@@ -62,9 +36,6 @@ public class Order {
         return "Order{" +
                 "orderId=" + orderId +
                 ", customerId=" + customerId +
-                ", productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", productValue=" + productValue +
                 '}';
     }
 
