@@ -8,13 +8,6 @@ public class Order {
     private String productName;
     private Double productValue;
 
-
-//    public Order(Long orderId, String productName, Double productValue) {
-//        this.setOrderId(orderId);
-//        this.productName = productName;
-//        this.productValue = productValue;
-//    }
-
     public Order(Long orderId, Long customerId, Long productId, String productName, Double productValue) {
         this.setOrderId(orderId);
         this.setCustomerId(customerId);
